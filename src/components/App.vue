@@ -8,7 +8,7 @@
           <li><a v-link="'secretquote'" v-if="user.authenticated">Secret Quote</a></li>
           <li><a v-link="'login'" v-if="user.authenticated" @click="logout()">Logout</a></li>
         </ul>
-      </div>    
+      </div> 
     </nav>
     <div class="container">
       <router-view></router-view>
@@ -16,8 +16,11 @@
   </template>
 
   <script>
+
   import auth from '../auth'
+
   export default {
+
     data() {
       return {
         user: auth.user
@@ -30,4 +33,3 @@
     }
   }
   </script>
-  

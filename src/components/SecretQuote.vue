@@ -10,6 +10,8 @@
 
   <script>
   import auth from '../auth'
+  import store from '../store'
+
   export default {
     data() {
       return {
@@ -18,7 +20,7 @@
     },
     methods: {
       getQuote() {
-        this.$http
+      this.$http
           .get('http://localhost:3001/api/protected/random-quote', (data) => {
             this.quote = data;
           }, {
