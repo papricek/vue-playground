@@ -1,12 +1,23 @@
 import PouchDB from 'pouchdb'
 import _ from 'lodash'
 
+PouchDB.plugin(require('pouchdb-authentication'))
+
 const db = new PouchDB('aaa')
 window.PouchDB = PouchDB
-const remotedb = false // new PouchDB('https://papricek.cloudant.com/aleebi')
+const remotedb = new PouchDB('https://papricek.cloudant.com/aleebi', {skipSetup: true})
 const store = {}
 
-// PouchDB.debug.disable()
+db.info().then(info =>
+  console.log(info)
+)
+remotedb.info().then(info =>
+  console.log(info)
+)
+
+remotedb.login('papricek', 'jasin').then(login =>
+  console.log("Logged in remote couch!")
+)
 
 store.create = (type, data) => {
   return db.post({type: type, data: data})
