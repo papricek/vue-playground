@@ -38,6 +38,26 @@ store.reloadProperty = (obj, prop) => {
     db.sync(remotedb)
   }
 }
+store.reloadWords = (obj, prop) => {
+  store.findWords().then(posts => {
+    obj[prop] = _.map(posts, (post) => post.doc)
+    console.log(obj[prop])
+  })
+  if (remotedb) {
+    db.sync(remotedb)
+  }
+}
+
+store.findWords = () => {
+  function map (doc, emit) {
+    if (doc.type === 'randomWord') {
+      emit(doc.createdAt)
+    }
+  }
+  return db.query(map, {include_docs: true}).then(posts =>
+    _.map(posts.rows, (post) => post)
+  )
+}
 
 store.findQuotes = () => {
   function map (doc, emit) {
